@@ -1,6 +1,9 @@
 from pathlib import Path
 import os
 
+from google.cloud import secretmanager
+from google.api_core import retry
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -146,3 +149,30 @@ ACCOUNT_FORMS = {
     "signup": "users.forms.LabSignUpForm",
 }
 ACCOUNT_USER_DISPLAY = "users.utils.user_display"
+
+
+# Google Cloud
+def get_secret(client, project_id, key):
+    """
+    Get secrets from Secret Manager
+    """
+    resource_id = f"projects/{project_id}/secrets/{key}/versions/latest"
+    res = client.access_secret_version(resource_id, retry=retry.Retry())
+    return res.payload.data.decode("UTF-8")
+
+
+if os.environ.get("DEBUG"):
+    DEBUG = False
+    GCP_PROJECT = os.getenv("GOOGLE_CLOUD_PROJECT")
+    client = secretmanager.SecretManagerServiceClient()
+    SECRET_KEY = (get_secret(client, GCP_PROJECT, "SECRET_KEY"),)
+
+    DATABASES = {
+        "default": {
+            "ENGINE": get_secret(client, GCP_PROJECT, "DATABASE_ENGINE"),
+            "HOST": get_secret(client, GCP_PROJECT, "DATABASE_HOST"),
+            "NAME": get_secret(client, GCP_PROJECT, "DATABASE_NAME"),
+            "USER": get_secret(client, GCP_PROJECT, "DATABASE_USER"),
+            "PASSWORD": get_secret(client, GCP_PROJECT, "DATABASE_PASSWORD"),
+        }
+    }

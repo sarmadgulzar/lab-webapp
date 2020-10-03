@@ -117,6 +117,9 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "assets"),)
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
+# Django auth
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 # Users
 

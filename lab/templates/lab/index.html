@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
-{% load account socialaccount %}k
+{% load account socialaccount %}
 {% block content %}
 
-Hello from the Lab, {% user_display user %}
+{% if user.is_authenticated %}
+  Hello from the Lab, {% user_display user %}
+{% endif %}
 
 {% endblock content %}

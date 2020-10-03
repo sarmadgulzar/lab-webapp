@@ -159,7 +159,7 @@ def get_secret(client, project_id, key):
     """
     resource_id = f"projects/{project_id}/secrets/{key}/versions/latest"
     res = client.access_secret_version(
-        AccessSecretVersionRequest(resource_id), retry=retry.Retry()
+        request={"name": resource_id}, retry=retry.Retry()
     )
     return res.payload.data.decode("UTF-8")
 

@@ -24,7 +24,9 @@
     {% endif %}
     <div align="center">
       <a href="{% url 'index' %}"
-        ><button class="btn btn-outline mr-2">{% trans "Nope" %}</button></a
+        ><button class="btn btn-outline mr-2" type="button">
+          {% trans "Nope" %}
+        </button></a
       >
       <button class="btn btn-danger mr-2" type="submit">
         {% trans "Sign Out" %}

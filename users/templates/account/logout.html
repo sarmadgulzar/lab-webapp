@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+<!-- # -->
+{% load i18n %}
+<!-- # -->
+{% load account socialaccount %}
+<!-- # -->
+{% block head_title %} {% trans "Sign Out" %} {% endblock %}
+<!-- # -->
+{% block content %}
+<div class="col-6 p-4 mt-4 mx-auto border">
+  <h1>{% trans "Sign Out" %}</h1>
+
+  <p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+  <form class="pb-6" method="POST" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    <!-- # -->
+    {% if redirect_field_value %}
+    <input
+      type="hidden"
+      name="{{ redirect_field_name }}"
+      value="{{ redirect_field_value }}"
+    />
+    {% endif %}
+    <div align="center">
+      <a href="{% url 'index' %}"
+        ><button class="btn btn-outline mr-2">{% trans "Nope" %}</button></a
+      >
+      <button class="btn btn-danger mr-2" type="submit">
+        {% trans "Sign Out" %}
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock content %}

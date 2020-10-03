@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+<!-- # -->
+{% load i18n %}
+<!-- # -->
+{% load account socialaccount %}
+<!-- # -->
+{% block head_title %} {% trans "Sign In" %} {% endblock %}
+<!-- # -->
+{% block content %}
+<div class="col-6 p-4 mt-4 mx-auto border">
+  <h1>{% trans "Sign In" %}</h1>
+
+  <p>
+    {% blocktrans %}If you have not created an account yet, then please
+    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
+  </p>
+
+  <form class="pb-6" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    <div class="form-group {% if form.login.errors %}errored{% endif %}">
+      <div class="form-group-header">
+        <label for="id_login">Email</label>
+      </div>
+      <div class="form-group-body">{{ form.login }}</div>
+      <p class="note error" id="login-input-validation">
+        {% for error in form.email.errors %} {{ error }} {% endfor %}
+      </p>
+    </div>
+    <div class="form-group {% if form.password.errors %}errored{% endif %}">
+      <div class="form-group-header">
+        <label for="id_password">Password</label>
+      </div>
+      <div class="form-group-body">{{ form.password }}</div>
+      <p class="note error" id="password-input-validation">
+        {% for error in form.password.errors %} {{ error }} {% endfor %}
+      </p>
+    </div>
+    {% if redirect_field_value %}
+    <input
+      type="hidden"
+      name="{{ redirect_field_name }}"
+      value="{{ redirect_field_value }}"
+    />
+    {% endif %}
+    <button class="btn btn-outline mr-2" type="submit">
+      {% trans "Sign In" %}
+    </button>
+    <a class="button secondaryAction" href="{% url 'account_reset_password' %}"
+      >{% trans "Forgot Password?" %}</a
+    >
+  </form>
+</div>
+{% endblock content %}

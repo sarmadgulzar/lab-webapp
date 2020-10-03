@@ -138,3 +138,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "optional"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+ACCOUNT_FORMS = {
+    "login": "users.forms.LabLoginForm",
+    "signup": "users.forms.LabSignUpForm",
+}

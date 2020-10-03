@@ -1,10 +1,35 @@
+{% load account %}
+<!-- # -->
+{% load i18n %}
 <div class="Header">
   <div class="Header-item">
     <a href="{% url 'index' %}" class="Header-link f4 d-flex flex-items-center">
       <span>Lab</span>
     </a>
   </div>
-  <div class="Header-item">
+  <div class="Header-item Header-item--full">
     <input type="search" class="form-control input-dark" placeholder="Search" />
   </div>
+  {% if user.is_authenticated %}
+  <div class="Header-item mr-0">
+    <details class="dropdown details-reset details-overlay d-inline-block">
+      <summary class="btn" aria-haspopup="true">
+        {% user_display user %}
+        <div class="dropdown-caret"></div>
+      </summary>
+
+      <ul class="dropdown-menu dropdown-menu-se">
+        <li>
+          <a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a>
+        </li>
+      </ul>
+    </details>
+  </div>
+  {% else %}
+  <div class="Header-item mr-0">
+    <a href="{% url 'account_login' %}"
+      ><button class="btn btn-outline mr-2">{% trans "Log In" %}</button></a
+    >
+  </div>
+  {% endif %}
 </div>

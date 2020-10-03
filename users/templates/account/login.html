@@ -40,23 +40,17 @@
 
   <form class="pb-6" method="POST" action="{% url 'account_login' %}">
     {% csrf_token %}
-    <div class="form-group {% if form.login.errors %}errored{% endif %}">
+    <div class="form-group">
       <div class="form-group-header">
         <label for="id_login">Email</label>
       </div>
       <div class="form-group-body">{{ form.login }}</div>
-      <p class="note error" id="login-input-validation">
-        {% for error in form.email.errors %} {{ error }} {% endfor %}
-      </p>
     </div>
-    <div class="form-group {% if form.password.errors %}errored{% endif %}">
+    <div class="form-group">
       <div class="form-group-header">
         <label for="id_password">Password</label>
       </div>
       <div class="form-group-body">{{ form.password }}</div>
-      <p class="note error" id="password-input-validation">
-        {% for error in form.password.errors %} {{ error }} {% endfor %}
-      </p>
     </div>
     {% if redirect_field_value %}
     <input

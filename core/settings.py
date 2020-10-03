@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 
 from google.cloud import secretmanager
+from google.cloud.secretmanager_v1.types.service import AccessSecretVersionRequest
 from google.api_core import retry
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -157,7 +158,9 @@ def get_secret(client, project_id, key):
     Get secrets from Secret Manager
     """
     resource_id = f"projects/{project_id}/secrets/{key}/versions/latest"
-    res = client.access_secret_version(resource_id, retry=retry.Retry())
+    res = client.access_secret_version(
+        AccessSecretVersionRequest(resource_id), retry=retry.Retry()
+    )
     return res.payload.data.decode("UTF-8")
 
 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-
+{% load account socialaccount %}k
 {% block content %}
 
-Hello from the Lab
+Hello from the Lab, {% user_display user %}
 
 {% endblock content %}

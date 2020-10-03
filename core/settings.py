@@ -145,3 +145,4 @@ ACCOUNT_FORMS = {
     "login": "users.forms.LabLoginForm",
     "signup": "users.forms.LabSignUpForm",
 }
+ACCOUNT_USER_DISPLAY = "users.views.user_display"

@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    # Django anymail
+    "anymail",
 ]
 
 MIDDLEWARE = [
@@ -179,3 +181,14 @@ if os.environ.get("DEBUG"):
             "PASSWORD": get_secret(client, GCP_PROJECT, "DATABASE_PASSWORD"),
         }
     }
+
+    # Djano anymail
+    ANYMAIL = {
+        "MAILGUN_API_KEY": get_secret(client, GCP_PROJECT, "MAILGUN_API_KEY"),
+        "MAILGUN_SENDER_DOMAIN": get_secret(
+            client, GCP_PROJECT, "MAILGUN_SENDER_DOMAIN"
+        ),
+    }
+    EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+    DEFAULT_FROM_EMAIL = "admin@lab.sarmad.ai"
+    SERVER_EMAIL = "admin@lab.sarmad.ai"

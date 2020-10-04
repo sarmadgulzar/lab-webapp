@@ -27,6 +27,11 @@
   </div>
   {% else %}
   <div class="Header-item mr-0">
+    <a href="{% url 'account_signup' %}"
+      ><button class="btn btn-outline mr-2">{% trans "Sign Up" %}</button></a
+    >
+  </div>
+  <div class="Header-item mr-0">
     <a href="{% url 'account_login' %}"
       ><button class="btn btn-outline mr-2">{% trans "Log In" %}</button></a
     >

@@ -11,6 +11,7 @@ click==7.1.2
 defusedxml==0.6.0
 Django==3.1.2
 django-allauth==0.42.0
+django-anymail==8.0
 google-api-core==1.22.3
 google-auth==1.22.0
 google-cloud-secret-manager==2.0.0
